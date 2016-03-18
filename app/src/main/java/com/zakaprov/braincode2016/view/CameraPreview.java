@@ -1,0 +1,71 @@
+package com.zakaprov.braincode2016.view;
+
+import android.content.Context;
+import android.hardware.Camera;
+import android.util.Log;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+
+import com.zakaprov.braincode2016.util.GlobalConstants;
+
+import java.io.IOException;
+
+public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
+
+    private SurfaceHolder mSurfaceHolder;
+    private Camera mCamera;
+
+    public CameraPreview(Context context) {
+        super(context);
+        mCamera = getCameraInstance();
+
+        mSurfaceHolder = getHolder();
+        mSurfaceHolder.addCallback(this);
+    }
+
+    public void surfaceCreated(SurfaceHolder holder) {
+        try {
+            mCamera.setPreviewDisplay(holder);
+            mCamera.startPreview();
+        } catch (IOException e) {
+            Log.d(GlobalConstants.LOG_TAG, "Error setting camera preview: " + e.getMessage());
+        }
+    }
+
+    public void surfaceDestroyed(SurfaceHolder holder) { }
+
+    public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
+        if (mSurfaceHolder.getSurface() == null) {
+            return;
+        }
+
+        try {
+            mCamera.stopPreview();
+        } catch (Exception ignored) { }
+
+        if (mCamera == null) {
+            mCamera = getCameraInstance();
+        }
+
+        try {
+            mCamera.setPreviewDisplay(mSurfaceHolder);
+            mCamera.startPreview();
+
+        } catch (Exception e) {
+            Log.d(GlobalConstants.LOG_TAG, "Error starting camera preview: " + e.getMessage());
+        }
+    }
+
+    public static Camera getCameraInstance() {
+        Camera camera = null;
+
+        try {
+            camera = Camera.open();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return camera;
+    }
+}
