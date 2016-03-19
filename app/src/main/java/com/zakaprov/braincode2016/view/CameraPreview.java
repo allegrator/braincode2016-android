@@ -25,6 +25,11 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     public void surfaceCreated(SurfaceHolder holder) {
         try {
+            Camera.Parameters parameters = mCamera.getParameters();
+            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            parameters.setPictureSize(800, 600);
+            mCamera.setParameters(parameters);
+
             mCamera.setPreviewDisplay(holder);
             mCamera.startPreview();
         } catch (IOException e) {
@@ -54,6 +59,10 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         } catch (Exception e) {
             Log.d(GlobalConstants.LOG_TAG, "Error starting camera preview: " + e.getMessage());
         }
+    }
+
+    public void takePicture(Camera.PictureCallback jpegPictureCallback) {
+        mCamera.takePicture(null, null, jpegPictureCallback);
     }
 
     public static Camera getCameraInstance() {
