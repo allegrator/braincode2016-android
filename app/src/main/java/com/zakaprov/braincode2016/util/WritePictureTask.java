@@ -1,16 +1,20 @@
 package com.zakaprov.braincode2016.util;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
 
 public class WritePictureTask extends AsyncTask<byte[], String, String> {
 
+    private Context mContext;
     private OnTaskFinishedListener mListener;
 
-    public WritePictureTask(OnTaskFinishedListener listener) {
+    public WritePictureTask(Context context, OnTaskFinishedListener listener) {
+        mContext = context;
         mListener = listener;
     }
 
@@ -18,7 +22,7 @@ public class WritePictureTask extends AsyncTask<byte[], String, String> {
     protected String doInBackground(byte[]... jpegData) {
         String photoName = String.format("android-%s.jpg", System.currentTimeMillis());
 
-        File photo = new File(Environment.getExternalStorageDirectory(), photoName);
+        File photo = new File(mContext.getApplicationInfo().dataDir, photoName);
 
         try {
             FileOutputStream outputStream = new FileOutputStream(photo.getPath());

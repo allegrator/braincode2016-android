@@ -57,7 +57,7 @@
         android:id="@+id/category_container"
         android:layout_width="match_parent"
         android:alpha="0.75"
-        android:layout_height="44dp"
+        android:layout_height="wrap_content"
         android:background="@color/color_overlay_background"
         android:layout_gravity="top">
 
@@ -67,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:padding="6dp"
             android:singleLine="true"
             android:maxLines="1"
             android:textColor="@color/color_progress_fab_accent"

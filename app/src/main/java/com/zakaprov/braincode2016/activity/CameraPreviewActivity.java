@@ -65,7 +65,7 @@ public class CameraPreviewActivity extends InjectableBaseActivity<CameraPreviewA
                 }
 
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("http://allegro.pl/gunwo-" + mObtainedCategory));
+                i.setData(Uri.parse("http://allegro.pl/cat-" + mObtainedCategory));
                 startActivity(i);
             }
         });
@@ -82,7 +82,7 @@ public class CameraPreviewActivity extends InjectableBaseActivity<CameraPreviewA
                 mPreview.takePicture(new Camera.PictureCallback() {
                     @Override
                     public void onPictureTaken(byte[] data, Camera camera) {
-                        new WritePictureTask(new PhotoTaskFinishedListener()).execute(data);
+                        new WritePictureTask(CameraPreviewActivity.this, new PhotoTaskFinishedListener()).execute(data);
                     }
                 });
             }
@@ -95,7 +95,7 @@ public class CameraPreviewActivity extends InjectableBaseActivity<CameraPreviewA
 
         mCategoryContainer.animate()
                 .setDuration(0)
-                .translationY(-150)
+                .translationY(-170)
                 .start();
 
         hideResultFab();
@@ -107,7 +107,7 @@ public class CameraPreviewActivity extends InjectableBaseActivity<CameraPreviewA
         public void onTaskFinished(String fileName) {
             mProgressCircle.beginFinalAnimation();
 
-            File photo = new File(Environment.getExternalStorageDirectory(), fileName);
+            File photo = new File(getApplicationInfo().dataDir, fileName);
 
             TypedFile photoTypedFile = new TypedFile("image/jpeg", photo);
             mBraincodeNetworkClient.uploadFile(photoTypedFile, new Callback<Category>() {
@@ -146,20 +146,20 @@ public class CameraPreviewActivity extends InjectableBaseActivity<CameraPreviewA
     private void hideContainer() {
         mCategoryContainer.animate()
                 .setDuration(500)
-                .translationY(-150)
+                .translationY(-170)
                 .start();
     }
 
     private void showResultFab() {
         mResultIntentButton.animate()
-                .setDuration(300)
+                .setDuration(500)
                 .alpha(1)
                 .start();
     }
 
     private void hideResultFab() {
         mResultIntentButton.animate()
-                .setDuration(300)
+                .setDuration(500)
                 .alpha(0)
                 .start();
     }
