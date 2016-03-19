@@ -33,4 +33,5 @@ dependencies {
     compile 'com.google.dagger:dagger:2.0.1'
     compile 'javax.inject:javax.inject:1'
     compile 'javax.annotation:javax.annotation-api:1.2'
+    compile 'uk.co.chrisjenx:calligraphy:2.1.0'
 }

@@ -1,5 +1,6 @@
 package com.zakaprov.braincode2016.activity;
 
+import android.content.Context;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
@@ -25,6 +26,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.TypedFile;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CameraPreviewActivity extends InjectableBaseActivity<CameraPreviewActivity.Component> {
 
@@ -67,6 +69,8 @@ public class CameraPreviewActivity extends InjectableBaseActivity<CameraPreviewA
             mBraincodeNetworkClient.uploadFile(photoTypedFile, new Callback<Response>() {
                 @Override
                 public void success(Response response, Response response2) {
+                    // TODO read category from response
+
 
                 }
 
