@@ -17,13 +17,18 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     public CameraPreview(Context context) {
         super(context);
-        mCamera = getCameraInstance();
 
         mSurfaceHolder = getHolder();
         mSurfaceHolder.addCallback(this);
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
+        try {
+            mCamera.stopPreview();
+        } catch (Exception ignored) { }
+
+        mCamera = getCameraInstance();
+
         try {
             Camera.Parameters parameters = mCamera.getParameters();
             parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);

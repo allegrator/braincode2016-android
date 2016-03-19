@@ -1,5 +1,7 @@
 package com.zakaprov.braincode2016.network;
 
+import com.zakaprov.braincode2016.model.Category;
+
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
@@ -23,7 +25,7 @@ public class BraincodeNetworkClient {
         mApi = adapter.create(BraincodeApi.class);
     }
 
-    public void uploadFile(TypedFile photo, Callback<Response> callback) {
+    public void uploadFile(TypedFile photo, Callback<Category> callback) {
         mApi.uploadFile(photo, callback);
     }
 }

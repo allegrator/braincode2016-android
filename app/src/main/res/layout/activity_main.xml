@@ -17,14 +17,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        app:backgroundTint="@color/colorAccent"
+        app:backgroundTint="@color/color_accent"
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_menu_camera" />
 
     <RelativeLayout
         android:id="@+id/category_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
+        android:background="@color/color_overlay_background"
+        android:layout_marginTop="-44dp"
         android:layout_gravity="top">
 
         <TextView
