@@ -34,7 +34,22 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         mCamera = getCameraInstance();
 
         try {
+            Camera.CameraInfo info = new Camera.CameraInfo();
+            Camera.getCameraInfo(Camera.CameraInfo.CAMERA_FACING_BACK, info);
+            int rotation = mContext.getWindowManager().getDefaultDisplay().getRotation();
+            int degrees = 0;
+            switch (rotation) {
+                case Surface.ROTATION_0:
+                    degrees = 0;
+                    break; //Natural orientation
+                case Surface.ROTATION_90: degrees = 90; break; //Landscape left
+                case Surface.ROTATION_180: degrees = 180; break;//Upside down
+                case Surface.ROTATION_270: degrees = 270; break;//Landscape right
+            }
+            int rotate = (info.orientation - degrees + 360) % 360;
+
             Camera.Parameters parameters = mCamera.getParameters();
+            parameters.setRotation(rotate);
             parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
             parameters.setPictureSize(800, 600);
             mCamera.setParameters(parameters);
