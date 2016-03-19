@@ -12,21 +12,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/camera_button_capture"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        app:backgroundTint="@color/color_accent"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_camera" />
+        android:layout_gravity="bottom|end">
+
+        <com.github.jorgecastilloprz.FABProgressCircle
+            android:id="@+id/camera_button_progress_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:arcColor="@color/color_progress_fab_accent"
+            app:finalIcon="@drawable/ic_done"
+            app:arcWidth="4dp"
+            app:reusable="true">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/camera_button_capture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/color_accent"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@android:drawable/ic_menu_camera" />
+
+        </com.github.jorgecastilloprz.FABProgressCircle>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/category_container"
         android:layout_width="match_parent"
+        android:alpha="0.75"
         android:layout_height="44dp"
         android:background="@color/color_overlay_background"
-        android:layout_marginTop="-44dp"
+        android:layout_marginTop="-46dp"
         android:layout_gravity="top">
 
         <TextView
@@ -35,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:textColor="@color/color_progress_fab_accent"
             android:textSize="36dp"
             android:text="Bla bla kategoria"/>
     </RelativeLayout>

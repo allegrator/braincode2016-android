@@ -72,6 +72,10 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         mCamera.takePicture(null, null, jpegPictureCallback);
     }
 
+    public void startPreview() {
+        mCamera.startPreview();
+    }
+
     public static Camera getCameraInstance() {
         Camera camera = null;
 

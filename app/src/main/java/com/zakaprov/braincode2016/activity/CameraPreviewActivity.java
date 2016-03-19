@@ -1,6 +1,5 @@
 package com.zakaprov.braincode2016.activity;
 
-import android.animation.ObjectAnimator;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
@@ -10,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.jorgecastilloprz.FABProgressCircle;
 import com.zakaprov.braincode2016.R;
 import com.zakaprov.braincode2016.inject.ApplicationModule;
 import com.zakaprov.braincode2016.inject.NetworkModule;
@@ -36,6 +36,7 @@ public class CameraPreviewActivity extends InjectableBaseActivity<CameraPreviewA
     @Bind(R.id.camera_button_capture) FloatingActionButton mCameraButtonCapture;
     @Bind(R.id.category_container) RelativeLayout mCategoryContainer;
     @Bind(R.id.category_text_view) TextView mTextView;
+    @Bind(R.id.camera_button_progress_circle) FABProgressCircle mProgressCircle;
 
     @Inject BraincodeNetworkClient mBraincodeNetworkClient;
 
@@ -53,6 +54,9 @@ public class CameraPreviewActivity extends InjectableBaseActivity<CameraPreviewA
         mCameraButtonCapture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mProgressCircle.show();
+                mCameraButtonCapture.setClickable(false);
+                hideContainer();
                 mPreview.takePicture(new Camera.PictureCallback() {
                     @Override
                     public void onPictureTaken(byte[] data, Camera camera) {
@@ -67,6 +71,8 @@ public class CameraPreviewActivity extends InjectableBaseActivity<CameraPreviewA
 
         @Override
         public void onTaskFinished(String fileName) {
+            mProgressCircle.beginFinalAnimation();
+
             File photo = new File(Environment.getExternalStorageDirectory(), fileName);
 
             TypedFile photoTypedFile = new TypedFile("image/jpeg", photo);
@@ -74,23 +80,36 @@ public class CameraPreviewActivity extends InjectableBaseActivity<CameraPreviewA
 
                 @Override
                 public void success(Category category, Response response) {
+                    showContainer();
+                    mCameraButtonCapture.setClickable(true);
                     mTextView.setText(category.getName());
-
-                    mCategoryContainer.animate()
-                            .setDuration(500)
-                            .translationY(120)
-                            .start();
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
-                    mCategoryContainer.animate()
-                            .setDuration(500)
-                            .translationY(0)
-                            .start();
+                    mProgressCircle.hide();
+                    mCameraButtonCapture.setClickable(true);
+
+                    hideContainer();
                 }
             });
+
+            mPreview.startPreview();
         }
+    }
+
+    private void showContainer() {
+        mCategoryContainer.animate()
+                .setDuration(500)
+                .translationY(120)
+                .start();
+    }
+
+    private void hideContainer() {
+        mCategoryContainer.animate()
+                .setDuration(500)
+                .translationY(0)
+                .start();
     }
 
     @Override

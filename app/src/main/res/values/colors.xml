@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="color_accent">#FF5A00</color>
-    <color name="color_overlay_background">#99FFFFFF</color>
+    <color name="color_overlay_background">#FFFF5A00</color>
+    <color name="color_progress_fab_accent">#FFFFFFFF</color>
+    <color name="color_text">#AAFFFFFF</color>
 </resources>

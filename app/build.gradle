@@ -34,4 +34,5 @@ dependencies {
     compile 'javax.inject:javax.inject:1'
     compile 'javax.annotation:javax.annotation-api:1.2'
     compile 'uk.co.chrisjenx:calligraphy:2.1.0'
+    compile 'com.github.jorgecastilloprz:fabprogresscircle:1.01@aar'
 }
