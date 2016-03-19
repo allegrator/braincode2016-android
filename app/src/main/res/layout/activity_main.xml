@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:arcColor="@color/color_progress_fab_accent"
-            app:finalIcon="@drawable/ic_done"
+            app:finalIcon="@mipmap/ic_done_white_24dp"
             app:arcWidth="4dp"
             app:reusable="true">
 
