@@ -10,7 +10,7 @@ import retrofit.mime.TypedFile;
 
 public class BraincodeNetworkClient {
 
-    private static final String BASE_URL = "http://192.168.43.14:5000";
+    private static final String BASE_URL = "http://allegrator.kulak.technology:5001";
 
     private BraincodeApi mApi;
 
